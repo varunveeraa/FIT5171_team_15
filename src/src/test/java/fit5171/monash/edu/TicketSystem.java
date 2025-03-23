@@ -25,7 +25,7 @@ public class TicketSystem {
      * If found, it displays all tickets and lets the user choose one.
      * Otherwise it searches for a transfer option.
      */
-    public void chooseTicket(String city1, String city2) throws Exception {
+    public void chooseTicket(String city1, String city2) {
         int counter = 1;
         int idFirst = 0;
         int idSecond = 0;
@@ -65,7 +65,7 @@ public class TicketSystem {
     /**
      * Method for buying a single (direct) ticket.
      */
-    public void buyTicket(int ticket_id) throws Exception {
+    public void buyTicket(int ticket_id) {
         // Select ticket by its ID
         Ticket validTicket = TicketCollection.getTicketInfo(ticket_id);
 
@@ -148,7 +148,7 @@ public class TicketSystem {
      * Method for buying a ticket when a transfer (two tickets) is required.
      */
     @SuppressWarnings("null")
-    public void buyTicket(int ticket_id_first, int ticket_id_second) throws Exception {
+    public void buyTicket(int ticket_id_first, int ticket_id_second) {
         System.out.println(ticket_id_first + " " + ticket_id_second);
         Ticket validTicketFirst = TicketCollection.getTicketInfo(ticket_id_first);
         Ticket validTicketSecond = TicketCollection.getTicketInfo(ticket_id_second);
