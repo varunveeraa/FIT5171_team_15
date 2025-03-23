@@ -93,7 +93,7 @@ public class Flight {
 
     public String toString()
     {
-            return "Flight{" + (airplane != null ? airplane.toString() : "No Airplane Assigned") +
+            return "Flight{" + airplane.toString() +
                     ", date to=" +  getDateTo() + ", " + '\'' +
                     ", date from='" + getDateFrom() + '\'' +
                     ", depart from='" + getDepartFrom() + '\'' +
