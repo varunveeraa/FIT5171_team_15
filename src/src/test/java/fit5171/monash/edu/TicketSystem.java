@@ -121,7 +121,7 @@ public class TicketSystem {
                     ticket.setPrice(ticket.getPrice());
                     ticket.setClassVip(ticket.getClassVip());
                     ticket.setTicketStatus(true);
-
+                    
                     // Adjust available seats
                     if (ticket.getClassVip()) {
                         airplane.setBusinessSitsNumber(airplane.getBusinessSitsNumber() - 1);
@@ -219,7 +219,7 @@ public class TicketSystem {
                     } else {
                         airplane_first.setEconomySitsNumber(airplane_first.getEconomySitsNumber() - 1);
                     }
-                    System.out.println("--*-*-");
+                    System.out.println("----");
 
                     ticket_second.setPassenger(passenger);
                     ticket_second.setTicket_id(ticket_id_second);
@@ -232,7 +232,7 @@ public class TicketSystem {
                     } else {
                         airplane_second.setEconomySitsNumber(airplane_second.getEconomySitsNumber() - 1);
                     }
-                    System.out.println("--*-*-");
+                    System.out.println("----");
 
                     // Combine the prices of both tickets for the final bill
                     ticket.setPrice(ticket_first.getPrice() + ticket_second.getPrice());
@@ -263,3 +263,5 @@ public class TicketSystem {
         } catch (NullPointerException e) {
             return;
         }
+    }
+}
