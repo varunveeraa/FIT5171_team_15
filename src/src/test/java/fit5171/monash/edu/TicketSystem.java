@@ -263,9 +263,5 @@ public class TicketSystem {
         } catch (NullPointerException e) {
             return;
         }
-<<<<<<< HEAD
     }
 }
-=======
-    }
->>>>>>> cd911139f6170ff70d32ade286869bc1cb5fe8f4
