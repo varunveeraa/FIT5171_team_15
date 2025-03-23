@@ -26,41 +26,39 @@ public class TicketSystem {
      * Otherwise it searches for a transfer option.
      */
     public void chooseTicket(String city1, String city2) {
-        int counter = 1;
-        int idFirst = 0;
-        int idSecond = 0;
-
-        // Search for a direct flight from city1 to city2
+        // Try direct
         flight = FlightCollection.getFlightInfo(city1, city2);
-
         if (flight != null) {
-            // Display available tickets (assuming TicketCollection.getAllTickets() prints them)
             TicketCollection.getAllTickets();
             System.out.println("\nEnter the ID of the ticket you want to choose:");
             int ticket_id = in.nextInt();
-            // Validate ticket (could add additional validation here)
             buyTicket(ticket_id);
-        } else {
-            // In case there is no direct flight
-            // First, select a flight where depart_to = city2
-            Flight departToFlight = FlightCollection.getFlightInfo(city2);
-            // Then use its departFrom as a connection city and search for a flight from city1 to that city
-            String connectCity = departToFlight.getDepartFrom();
-            Flight flightConnectingTwoCities = FlightCollection.getFlightInfo(city1, connectCity);
-            if (flightConnectingTwoCities != null) {
-                System.out.println("There is a transfer option available. Way №" + counter);
-                idFirst = departToFlight.getFlightID();
-                idSecond = flightConnectingTwoCities.getFlightID();
-            }
-            counter++;
-            buyTicket(idFirst, idSecond); // Purchase two tickets for the transfer option
-
-            if (counter == 1) {
-                System.out.println("There are no possible variants.");
-            }
             return;
         }
+
+        // Try transfer route
+        System.out.println("No direct flight found. Checking for transfer route...");
+
+        Flight departToFlight = FlightCollection.getFlightInfo(city2);
+        if (departToFlight == null) {
+            System.out.println("No flights found to destination " + city2);
+            return;
+        }
+
+        String connectCity = departToFlight.getDepartFrom();
+        Flight viaFlight = FlightCollection.getFlightInfo(city1, connectCity);
+
+        if (viaFlight == null) {
+            System.out.println("No connecting flight from " + city1 + " to " + connectCity);
+            return;
+        }
+
+        System.out.println("Transfer route found: " + city1 + " -> " + connectCity + " -> " + city2);
+        int idFirst = departToFlight.getFlightID();
+        int idSecond = viaFlight.getFlightID();
+        buyTicket(idFirst, idSecond);
     }
+
 
     /**
      * Method for buying a single (direct) ticket.
@@ -121,7 +119,7 @@ public class TicketSystem {
                     ticket.setPrice(ticket.getPrice());
                     ticket.setClassVip(ticket.getClassVip());
                     ticket.setTicketStatus(true);
-                    
+
                     // Adjust available seats
                     if (ticket.getClassVip()) {
                         airplane.setBusinessSitsNumber(airplane.getBusinessSitsNumber() - 1);
