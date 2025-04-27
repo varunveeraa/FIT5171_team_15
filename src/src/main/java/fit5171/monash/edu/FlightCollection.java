@@ -4,31 +4,45 @@ import java.util.ArrayList;
 
 public class FlightCollection {
 
-    public static ArrayList<Flight> flights;
+    private static ArrayList<Flight> flights = new ArrayList<>(); // initialized properly
 
     public static ArrayList<Flight> getFlights() {
         return flights;
     }
 
-    public static void addFlights(ArrayList<Flight> flights) {
-        FlightCollection.flights.addAll(flights);
+    public static void addFlight(Flight flight) {
+        flights.add(flight);
+    }
+
+    public static void addFlights(ArrayList<Flight> flightsToAdd) {
+        flights.addAll(flightsToAdd);
     }
 
     public static Flight getFlightInfo(String city1, String city2) {
-        //display the flights where there is a direct flight from city 1 to city2
-        return null;
+        for (Flight flight : flights) {
+            if (flight.getDepartFrom().equalsIgnoreCase(city1) &&
+                    flight.getDepartTo().equalsIgnoreCase(city2)) {
+                return flight; // Found direct flight
+            }
+        }
+        return null; // No direct flight found
     }
 
     public static Flight getFlightInfo(String city) {
-        //SELECT a flight where depart_to = city
-        return null;
-
+        for (Flight flight : flights) {
+            if (flight.getDepartTo().equalsIgnoreCase(city)) {
+                return flight; // Found a flight that arrives at 'city'
+            }
+        }
+        return null; // No flight found
     }
+
     public static Flight getFlightInfo(int flight_id) {
-        //SELECT a flight with a particular flight id
-        return null;
-
+        for (Flight flight : flights) {
+            if (flight.getFlightID() == flight_id) {
+                return flight; // Found by ID
+            }
+        }
+        return null; // No flight found
     }
-
-
 }
